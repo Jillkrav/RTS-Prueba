@@ -21,6 +21,9 @@ var sprint_multiplier: float = 3.0
 var rotate_speed: float = 0.005
 var is_rotating: bool = false
 
+# Selección de unidad
+var selected_unit: Unit = null
+
 func _ready() -> void:
 	blue_melee_btn.pressed.connect(base_blue.spawn_melee)
 	blue_ranged_btn.pressed.connect(base_blue.spawn_ranged)
@@ -34,6 +37,9 @@ func _input(event: InputEvent) -> void:
 			MOUSE_BUTTON_LEFT:
 				if mouse_event.pressed:
 					select_unit_from_mouse(mouse_event.position)
+			MOUSE_BUTTON_RIGHT:
+				if mouse_event.pressed and selected_unit != null:
+					move_selected_unit_to_mouse(mouse_event.position)
 			MOUSE_BUTTON_WHEEL_UP:
 				if mouse_event.pressed:
 					_zoom_camera(-zoom_speed)
@@ -92,11 +98,44 @@ func select_unit_from_mouse(mouse_position: Vector2) -> void:
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var result: Dictionary = space_state.intersect_ray(query)
 
+	# Deseleccionar anterior
+	if selected_unit != null and is_instance_valid(selected_unit):
+		selected_unit.deselect()
+	selected_unit = null
+
 	if result.is_empty():
 		return
 
 	var collider: Object = result["collider"]
-
 	if collider is Unit:
 		var unit: Unit = collider
-		unit.activate()
+		unit.select()
+		selected_unit = unit
+
+func move_selected_unit_to_mouse(mouse_position: Vector2) -> void:
+	if selected_unit == null or not is_instance_valid(selected_unit):
+		selected_unit = null
+		return
+
+	var from: Vector3 = camera.project_ray_origin(mouse_position)
+	var to: Vector3 = from + camera.project_ray_normal(mouse_position) * 1000.0
+
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [selected_unit.get_rid()]
+	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
+	var result: Dictionary = space_state.intersect_ray(query)
+
+	if result.is_empty():
+		return
+
+	var collider = result.get("collider", null)
+
+	# Clic derecho sobre enemigo → ordenar ataque
+	if collider is Unit:
+		var clicked_unit: Unit = collider
+		if clicked_unit.team != selected_unit.team:
+			selected_unit.order_attack(clicked_unit)
+			return
+
+	# Clic derecho en el suelo → mover ahí
+	selected_unit.move_to_position(result["position"])
