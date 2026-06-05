@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://src/scripts/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://src/scenes/base.tscn" id="1_base_scene"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("ProceduralSkyMaterial_1")
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1"]
+size = Vector2(50, 30)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_map"]
+albedo_color = Color(0.188235, 0.384314, 0.188235, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_map"]
+size = Vector3(50, 0.1, 30)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Map" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map"]
+mesh = SubResource("PlaneMesh_1")
+surface_material_override/0 = SubResource("StandardMaterial3D_map")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map"]
+shape = SubResource("BoxShape3D_map")
+
+[node name="BaseBlue" parent="." instance=ExtResource("1_base_scene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20, 1, 0)
+
+[node name="BaseRed" parent="." instance=ExtResource("1_base_scene")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 20, 1, 0)
+team = 1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 0, 20, 15)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlueControls" type="VBoxContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -100.0
+offset_right = 170.0
+offset_bottom = -20.0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="HUD/Control/BlueControls"]
+layout_mode = 2
+text = "Blue Base"
+
+[node name="MeleeBtn" type="Button" parent="HUD/Control/BlueControls"]
+layout_mode = 2
+text = "Spawn Melee"
+
+[node name="RangedBtn" type="Button" parent="HUD/Control/BlueControls"]
+layout_mode = 2
+text = "Spawn Ranged"
+
+[node name="RedControls" type="VBoxContainer" parent="HUD/Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -100.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="HUD/Control/RedControls"]
+layout_mode = 2
+text = "Red Base"
+horizontal_alignment = 2
+
+[node name="MeleeBtn" type="Button" parent="HUD/Control/RedControls"]
+layout_mode = 2
+text = "Spawn Melee"
+
+[node name="RangedBtn" type="Button" parent="HUD/Control/RedControls"]
+layout_mode = 2
+text = "Spawn Ranged"
