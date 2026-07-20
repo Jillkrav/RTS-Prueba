@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "factions": [
+    {
+      "id": "faction_a",
+      "display_name_key": "faction.faction_a.name",
+      "description_key": "faction.faction_a.description",
+      "unit_modifiers": {
+        "villager": {
+          "health_max_add": 0,
+          "damage_add": 0,
+          "move_speed_mult": 1.0
+        },
+        "swordsman": {
+          "health_max_add": 5,
+          "damage_add": 2,
+          "armor_add": 1
+        },
+        "archer": {
+          "health_max_add": 0,
+          "damage_add": 0,
+          "range_add": 20
+        }
+      },
+      "tags": ["balanced", "defensive"]
+    },
+    {
+      "id": "faction_b",
+      "display_name_key": "faction.faction_b.name",
+      "description_key": "faction.faction_b.description",
+      "unit_modifiers": {
+        "villager": {
+          "health_max_add": 0,
+          "damage_add": 0,
+          "move_speed_mult": 1.1
+        },
+        "swordsman": {
+          "health_max_add": 0,
+          "damage_add": -2,
+          "move_speed_mult": 1.15
+        },
+        "archer": {
+          "health_max_add": -5,
+          "damage_add": 3,
+          "range_add": 0
+        }
+      },
+      "tags": ["aggressive", "fast"]
+    }
+  ]
+}

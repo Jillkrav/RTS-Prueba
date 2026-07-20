@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "game_rules",
+  "starting_gold": 100,
+  "starting_population_cap": 5,
+  "max_population_cap": 200,
+  "population_per_house": 5,
+  "victory_condition": "destroy",
+  "capture_rules": {
+    "required_units_min": 1,
+    "capture_range": 30,
+    "loyalty_drain_per_sec": 10,
+    "interrupt_range": 100
+  },
+  "units_max_selection": 20,
+  "debug": {
+    "show_shapes": true,
+    "show_ids": false,
+    "show_paths": false,
+    "show_state": false
+  }
+}

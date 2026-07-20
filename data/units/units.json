@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "units": [
+    {
+      "id": "villager",
+      "display_name_key": "unit.villager.name",
+      "category": "economic",
+      "attack": {
+        "mode": "melee",
+        "damage": 3,
+        "range": 15,
+        "cooldown_sec": 1.5,
+        "projectile_speed": 0,
+        "area_radius": 0
+      },
+      "health_max": 25,
+      "armor": 0,
+      "move_speed": 100,
+      "cost": {"gold": 10},
+      "train_time_sec": 2.0,
+      "population_cost": 1,
+      "leadership_capacity": 0,
+      "capture_power": 2,
+      "gather_rate": 10,
+      "build_rate": 1,
+      "experience": {"max_level": 3},
+      "visual": {
+        "debug_shape": "square",
+        "color": "#ffffff",
+        "size": 12
+      },
+      "tags": ["worker", "can_build", "can_gather"]
+    },
+    {
+      "id": "swordsman",
+      "display_name_key": "unit.swordsman.name",
+      "category": "military",
+      "attack": {
+        "mode": "melee",
+        "damage": 15,
+        "range": 15,
+        "cooldown_sec": 1.2,
+        "projectile_speed": 0,
+        "area_radius": 0
+      },
+      "health_max": 50,
+      "armor": 1,
+      "move_speed": 80,
+      "cost": {"gold": 20},
+      "train_time_sec": 1.5,
+      "population_cost": 1,
+      "leadership_capacity": 5,
+      "capture_power": 1,
+      "experience": {"max_level": 3},
+      "visual": {
+        "debug_shape": "square",
+        "color": "#ffffff",
+        "size": 12
+      },
+      "tags": ["melee", "front_line"]
+    },
+    {
+      "id": "archer",
+      "display_name_key": "unit.archer.name",
+      "category": "military",
+      "attack": {
+        "mode": "ranged",
+        "damage": 10,
+        "range": 180,
+        "cooldown_sec": 1.0,
+        "projectile_speed": 500,
+        "area_radius": 0
+      },
+      "health_max": 30,
+      "armor": 0,
+      "move_speed": 90,
+      "cost": {"gold": 15},
+      "train_time_sec": 1.2,
+      "population_cost": 1,
+      "leadership_capacity": 0,
+      "capture_power": 1,
+      "experience": {"max_level": 3},
+      "visual": {
+        "debug_shape": "triangle",
+        "color": "#ffffff",
+        "size": 12
+      },
+      "tags": ["ranged", "back_line"]
+    }
+  ]
+}

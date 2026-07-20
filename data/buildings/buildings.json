@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "buildings": [
+    {
+      "id": "castle",
+      "display_name_key": "building.castle.name",
+      "category": "core",
+      "health_max": 1000,
+      "loyalty_max": 100,
+      "armor": 3,
+      "cost": {"gold": 0},
+      "build_time_sec": 0,
+      "footprint": {"width": 3, "height": 3},
+      "population_cap_add": 0,
+      "production_queue": true,
+      "trainable_units": ["villager"],
+      "capture_rules": {
+        "can_be_captured": true,
+        "capture_power_required": 1
+      },
+      "visual": {
+        "debug_shape": "square",
+        "color": "#ffffff",
+        "size": 24
+      },
+      "tags": ["castle", "victory_condition", "spawn"]
+    },
+    {
+      "id": "house",
+      "display_name_key": "building.house.name",
+      "category": "infrastructure",
+      "health_max": 100,
+      "loyalty_max": 100,
+      "armor": 0,
+      "cost": {"gold": 25},
+      "build_time_sec": 3.0,
+      "footprint": {"width": 2, "height": 2},
+      "population_cap_add": 5,
+      "production_queue": false,
+      "capture_rules": {
+        "can_be_captured": true,
+        "capture_power_required": 1
+      },
+      "visual": {
+        "debug_shape": "square",
+        "color": "#ffffff",
+        "size": 16
+      },
+      "tags": ["house", "population"]
+    },
+    {
+      "id": "barracks",
+      "display_name_key": "building.barracks.name",
+      "category": "military",
+      "health_max": 300,
+      "loyalty_max": 100,
+      "armor": 1,
+      "cost": {"gold": 50},
+      "build_time_sec": 5.0,
+      "footprint": {"width": 2, "height": 2},
+      "population_cap_add": 0,
+      "production_queue": true,
+      "trainable_units": ["swordsman", "archer"],
+      "capture_rules": {
+        "can_be_captured": true,
+        "capture_power_required": 1
+      },
+      "visual": {
+        "debug_shape": "square",
+        "color": "#ffffff",
+        "size": 20
+      },
+      "tags": ["barracks", "production", "military"]
+    }
+  ]
+}
