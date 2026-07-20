@@ -1,4 +1,3 @@
-class_name GameSession
 extends Node
 ## Singleton que mantiene el estado global de la partida en curso.
 ## Almacena jugadores, sus recursos y estado general del juego.

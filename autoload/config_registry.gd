@@ -1,4 +1,3 @@
-class_name ConfigRegistry
 extends Node
 ## Singleton that loads and validates all JSON data files.
 ##
@@ -102,9 +101,13 @@ func _load_json(path: String, callback: Callable) -> void:
 		return
 
 	var schema_version: Variant = parsed.get("schema_version")
-	if schema_version == null or not (schema_version is int):
+	if schema_version == null or not (schema_version is int or schema_version is float):
 		_load_errors.append("Missing or invalid 'schema_version' in '%s'" % path)
 		return
+
+	# JSON.parse_string returns numbers as float in Godot 4
+	schema_version = int(schema_version)
+	parsed["schema_version"] = schema_version
 
 	callback.call(parsed, path)
 
@@ -232,6 +235,16 @@ func _assert_field(data: Dictionary, field: String, expected_type: int, path: St
 
 	var value: Variant = data[field]
 	var actual_type: int = typeof(value)
-	if actual_type != expected_type:
+	
+	# JSON.parse_string returns all numbers as float in Godot 4.
+	# Accept float when int is expected (and vice versa).
+	var is_type_ok: bool = actual_type == expected_type
+	if not is_type_ok:
+		if expected_type == TYPE_INT and actual_type == TYPE_FLOAT:
+			is_type_ok = true
+		elif expected_type == TYPE_FLOAT and actual_type == TYPE_INT:
+			is_type_ok = true
+	
+	if not is_type_ok:
 		_load_errors.append("%sField '%s' expected type %d but got %d in '%s'" \
 				% [prefix, field, expected_type, actual_type, path])

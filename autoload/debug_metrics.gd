@@ -1,5 +1,4 @@
-class_name DebugMetrics
-extends CanvasLayer
+extends Control
 ## Debug overlay showing FPS, entity counts, and simulation time.
 ##
 ## Toggle with F3 key. Extensible for future debug overlays
@@ -44,11 +43,16 @@ var _lines: Array[String] = []
 # Lifecycle
 # ---------------------------------------------------------------------------
 func _enter_tree() -> void:
-	layer = 128  # high layer, on top of everything
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	visible_overlay = true
 	name = "DebugMetrics"
 	set_process(true)
 	set_process_input(true)
+	
+	# Ocupar toda la pantalla para dibujar overlay
+	await get_tree().process_frame
+	if get_viewport():
+		size = get_viewport().get_visible_rect().size
 
 
 func _ready() -> void:

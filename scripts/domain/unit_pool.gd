@@ -11,7 +11,6 @@ var _next_id: int = 1
 
 
 func _ready() -> void:
-	_pool.reserve(INITIAL_CAPACITY)
 	for i in range(INITIAL_CAPACITY):
 		_pool.append(UnitState.new())
 

@@ -1,4 +1,3 @@
-class_name EventBus
 extends Node
 ## Global signal bus for decoupled communication between systems.
 ##
