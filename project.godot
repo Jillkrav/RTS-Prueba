@@ -13,15 +13,19 @@ config_version=5
 config/name="RTS 2.3"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+run/main_scene="res://scenes/rts/sandbox.tscn"
 
 [autoload]
 
-ConfigRegistry="\"*res://autoload/config_registry.gd\""
-EventBus="\"*res://autoload/event_bus.gd\""
-DebugMetrics="\"*res://autoload/debug_metrics.gd\""
+ConfigRegistry="*res://autoload/config_registry.gd"
+EventBus="*res://autoload/event_bus.gd"
+GameSession="*res://autoload/game_session.gd"
+DebugMetrics="*res://autoload/debug_metrics.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
